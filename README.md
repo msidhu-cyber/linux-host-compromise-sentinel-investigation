@@ -135,3 +135,39 @@ KQL queries were designed to correlate multiple security signals including:
 
 This correlation-based detection strategy improves alert fidelity by focusing on 
 attacker behaviour patterns rather than isolated security events.
+
+
+---
+
+## SOC Investigation Methodology
+
+A structured investigation workflow was followed to validate potential compromise 
+and determine attacker intent.
+
+### Timeline Analysis
+Authentication and system activity logs were reviewed to establish a clear sequence 
+of events from initial access through post-login behaviour.
+
+### Behavioural Correlation
+Multiple host-based signals were analysed together, including:
+
+• SSH authentication patterns  
+• Privilege escalation sessions  
+• Account creation activity  
+• Persistence mechanisms  
+• Command execution indicators  
+
+This approach enabled identification of abnormal activity clusters rather than 
+relying on single alert triggers.
+
+### Risk Assessment
+
+Indicators suggesting potential compromise included:
+
+• External remote access followed by elevated privilege usage  
+• Creation of additional accounts with administrative capability  
+• Modification of SSH authorised keys  
+• Scheduled execution mechanisms consistent with attacker persistence  
+• Interaction with sensitive system files
+
+Based on correlated evidence, the activity was classified and prioritised for response.
