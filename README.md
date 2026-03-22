@@ -2,72 +2,74 @@
 
 ## 🎯 Lab Objective
 
-This project simulates a realistic post-compromise investigation scenario involving a cloud-hosted Linux virtual machine.
+This project simulates a realistic post-compromise investigation scenario involving a cloud-hosted Linux virtual machine monitored using Microsoft Sentinel.
 
-The lab focuses on identifying attacker behaviour following successful SSH authentication, including privilege escalation, persistence mechanisms, and sensitive system interaction.
-
-The goal was to design detection logic, perform threat hunting, and execute structured SOC investigation workflows using Microsoft Sentinel.
+The objective was to replicate attacker behaviour following successful remote access, design behavioural detection logic, and conduct a structured SOC investigation aligned with real-world incident response workflows.
 
 ---
 
 ## 🧪 Simulated Attack Scenario
 
-A threat actor gained access to a Linux host through successful SSH authentication from an external IP address.
+A threat actor gained initial access to a Linux host through successful SSH authentication from an external IP address.
 
-Following initial access, the attacker performed several actions commonly observed in real-world compromises:
+Following authentication, several post-compromise behaviours were simulated to mirror real adversary tradecraft:
 
-- Privilege enumeration and escalation attempts (sudo / su usage)
-- Creation of additional service accounts for persistence
-- SSH persistence via authorised_keys modification
-- Scheduled task (cron) abuse for covert execution
-- Access to sensitive credential storage (/etc/shadow)
+- Privilege enumeration and escalation attempts using **sudo / su**
+- Creation of additional service accounts to maintain access
+- SSH persistence via modification of **authorized_keys**
+- Scheduled task (cron) abuse to enable covert execution
+- Access attempts to sensitive credential storage (**/etc/shadow**)
 - Repeated remote session establishment indicating sustained access
 
-These behaviours were intentionally generated to replicate attacker tradecraft aligned with MITRE ATT&CK techniques.
+These activities were intentionally generated to emulate realistic host compromise patterns observed in enterprise environments.
 
 ---
 
 ## 🛰️ Detection Engineering Approach
 
-Custom KQL hunting queries were developed within Microsoft Sentinel to correlate:
+Custom KQL hunting queries were developed in Microsoft Sentinel to perform **behavioural correlation** across multiple Linux Syslog signals.
 
-- Successful SSH authentication events  
-- Subsequent privilege-related system logs  
-- Persistence indicators  
-- Cron-based execution patterns  
+The detection strategy focused on identifying suspicious activity sequences rather than relying on isolated alert triggers.
 
-Behavioural correlation logic enabled detection of:
+Key detection logic included correlation of:
 
-- Suspicious login followed by privilege escalation  
-- Account creation activity shortly after authentication  
-- Indicators of long-term access persistence  
-- Sensitive file access attempts  
+- Successful SSH authentication events
+- Subsequent privilege escalation activity
+- Account manipulation or service account creation
+- Persistence indicators such as cron execution or SSH key modification
+- Interaction with sensitive system files
 
-This demonstrates the importance of contextual detection rather than reliance on single alert triggers.
+This behavioural detection methodology improves alert fidelity by highlighting attacker intent and progression.
 
 ---
 
 ## 🔎 Investigation Methodology
 
-The investigation process followed a structured SOC workflow:
+A structured SOC investigation workflow was followed to validate potential compromise:
 
-1. Validate authentication source and session patterns  
-2. Expand timeline to identify post-login behaviour  
-3. Analyse privilege usage and command execution  
-4. Identify persistence techniques and lateral movement risk  
-5. Confirm sensitive system interaction  
-6. Contain simulated threat and restore system security posture  
+1. Validate authentication source IP reputation and session patterns  
+2. Expand investigation timeline to identify post-login activity  
+3. Analyse privilege escalation behaviour and command execution  
+4. Identify persistence mechanisms including cron jobs and SSH key changes  
+5. Review access to sensitive credential storage locations  
+6. Assess activity consistency with expected administrative behaviour  
+
+This investigative approach aligns with real SOC triage practices for suspected host compromise scenarios.
 
 ---
 
-## 🛡️ Response Actions
+## 🛡️ Incident Response Actions
 
-- Removal of malicious SSH authorised keys  
-- Locking of compromised or suspicious accounts  
-- Verification of cron persistence removal  
-- Validation of system authentication logs  
-- Restoration of secure access configuration  
-- Shutdown of lab VM following investigation completion  
+Following confirmation of suspicious behaviour, containment actions were simulated:
+
+- Removal of unauthorized SSH persistence keys  
+- Locking of suspicious or potentially compromised service accounts  
+- Verification and removal of scheduled persistence tasks  
+- Review of authentication telemetry for additional compromise indicators  
+- Restoration of secure remote access configuration  
+- Shutdown of the virtual machine to simulate host isolation  
+
+These steps demonstrate practical incident response procedures used in enterprise security operations.
 
 ---
 
@@ -75,23 +77,23 @@ The investigation process followed a structured SOC workflow:
 
 - Microsoft Sentinel threat hunting  
 - KQL detection engineering  
-- Linux security event analysis  
+- Linux host security log analysis  
 - Privilege escalation investigation  
 - Persistence technique identification  
-- Incident triage and response workflow  
 - Behaviour-based detection strategy  
+- SOC incident triage and response workflow  
 
 ---
 
 ## 🧠 Key Learning Outcomes
 
-This lab reinforced critical SOC analyst competencies:
+This lab reinforced several critical SOC analyst competencies:
 
 - Attackers rarely stop at initial access — behavioural analysis is essential  
-- Timeline expansion is vital for uncovering true compromise scope  
-- Persistence indicators can be subtle but high-impact  
-- Effective detection requires correlation across multiple log signals  
-- Proper containment and environment hardening is a key investigation phase  
+- Expanding investigation timelines helps uncover full compromise scope  
+- Persistence mechanisms can be subtle but high-impact indicators  
+- Effective detection requires correlation across multiple telemetry sources  
+- Proper containment and environment hardening are key phases of response  
 
 ---
 
@@ -99,118 +101,39 @@ This lab reinforced critical SOC analyst competencies:
 
 - Microsoft Sentinel  
 - Azure Linux Virtual Machine  
-- Syslog via AMA  
-- KQL (Kusto Query Language)  
+- Syslog ingestion via Azure Monitor Agent (AMA)  
+- Kusto Query Language (KQL)  
 - SSH authentication telemetry  
 
 ---
 
 ## 📌 MITRE ATT&CK Techniques Observed
 
-- T1078 – Valid Accounts  
-- T1059 – Command Execution  
-- T1098 – Account Manipulation  
-- T1053 – Scheduled Task / Cron  
-- T1003 – Credential Access  
+- **T1078 — Valid Accounts**  
+- **T1548 — Abuse Elevation Control Mechanism**  
+- **T1098 — Account Manipulation**  
+- **T1053 — Scheduled Task / Cron**  
+- **T1003 — OS Credential Dumping**  
+- **T1087 — Account Discovery**
 
 ---
 
+## 📈 Detection Improvement Opportunities
 
+Future detection engineering enhancements could include:
 
----
+- Correlation of failed authentication bursts prior to successful login  
+- Geo-anomaly detection for external SSH authentication sources  
+- Behaviour baselining for privileged command execution  
+- Integration with endpoint telemetry for deeper host visibility  
+- Automated incident enrichment using Sentinel playbooks  
 
-## Detection Engineering Approach
-
-During the investigation, custom behavioural hunting logic was developed to identify 
-potential host compromise following successful SSH authentication.
-
-KQL queries were designed to correlate multiple security signals including:
-
-• Successful remote authentication events  
-• Privilege escalation behaviour (sudo / su activity)  
-• Creation of new service or persistence accounts  
-• SSH key modification indicating backdoor access  
-• Scheduled task (cron) abuse for covert execution  
-• Access attempts to sensitive credential storage  
-
-This correlation-based detection strategy improves alert fidelity by focusing on 
-attacker behaviour patterns rather than isolated security events.
-
+This reflects continuous detection improvement practices used in mature SOC environments.
 
 ---
 
-## SOC Investigation Methodology
+## 🧩 SOC Analyst Reflection
 
-A structured investigation workflow was followed to validate potential compromise 
-and determine attacker intent.
+This investigation highlighted the importance of analysing attacker behaviour progression rather than focusing solely on initial alerts.
 
-### Timeline Analysis
-Authentication and system activity logs were reviewed to establish a clear sequence 
-of events from initial access through post-login behaviour.
-
-### Behavioural Correlation
-Multiple host-based signals were analysed together, including:
-
-• SSH authentication patterns  
-• Privilege escalation sessions  
-• Account creation activity  
-• Persistence mechanisms  
-• Command execution indicators  
-
-This approach enabled identification of abnormal activity clusters rather than 
-relying on single alert triggers.
-
-### Risk Assessment
-
-Indicators suggesting potential compromise included:
-
-• External remote access followed by elevated privilege usage  
-• Creation of additional accounts with administrative capability  
-• Modification of SSH authorised keys  
-• Scheduled execution mechanisms consistent with attacker persistence  
-• Interaction with sensitive system files
-
-Based on correlated evidence, the activity was classified and prioritised for response.
-
------
-
----
-
-## MITRE ATT&CK Technique Mapping
-
-The simulated attacker behaviour aligns with several MITRE ATT&CK tactics and techniques:
-
-### Initial Access
-• T1078 – Valid Accounts  
-External SSH authentication using legitimate credentials enabled host access.
-
-### Privilege Escalation
-• T1548 – Abuse Elevation Control Mechanism  
-Use of sudo / su to obtain root-level privileges.
-
-### Persistence
-• T1098 – Account Manipulation  
-Creation of additional service account for sustained access.
-
-• T1053 – Scheduled Task / Job  
-Cron-based execution configured to maintain covert activity.
-
-• T1098.004 – SSH Authorized Keys  
-Modification of authorised_keys to enable key-based re-entry.
-
-### Credential Access
-• T1003 – OS Credential Dumping  
-Access to /etc/shadow indicating potential credential harvesting.
-
-### Discovery
-• T1087 – Account Discovery  
-Enumeration of system accounts and privilege assignments.
-
-This mapping demonstrates how host telemetry can be contextualised within 
-a recognised adversary behaviour framework.
-
-------
-
-
-
-
+The exercise strengthened practical skills in behavioural threat hunting, log correlation, and structured incident containment — core competencies required for modern SOC analysts.
