@@ -114,3 +114,24 @@ This lab reinforced critical SOC analyst competencies:
 - T1003 – Credential Access  
 
 ---
+
+
+
+---
+
+## Detection Engineering Approach
+
+During the investigation, custom behavioural hunting logic was developed to identify 
+potential host compromise following successful SSH authentication.
+
+KQL queries were designed to correlate multiple security signals including:
+
+• Successful remote authentication events  
+• Privilege escalation behaviour (sudo / su activity)  
+• Creation of new service or persistence accounts  
+• SSH key modification indicating backdoor access  
+• Scheduled task (cron) abuse for covert execution  
+• Access attempts to sensitive credential storage  
+
+This correlation-based detection strategy improves alert fidelity by focusing on 
+attacker behaviour patterns rather than isolated security events.
