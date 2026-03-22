@@ -171,3 +171,46 @@ Indicators suggesting potential compromise included:
 • Interaction with sensitive system files
 
 Based on correlated evidence, the activity was classified and prioritised for response.
+
+-----
+
+---
+
+## MITRE ATT&CK Technique Mapping
+
+The simulated attacker behaviour aligns with several MITRE ATT&CK tactics and techniques:
+
+### Initial Access
+• T1078 – Valid Accounts  
+External SSH authentication using legitimate credentials enabled host access.
+
+### Privilege Escalation
+• T1548 – Abuse Elevation Control Mechanism  
+Use of sudo / su to obtain root-level privileges.
+
+### Persistence
+• T1098 – Account Manipulation  
+Creation of additional service account for sustained access.
+
+• T1053 – Scheduled Task / Job  
+Cron-based execution configured to maintain covert activity.
+
+• T1098.004 – SSH Authorized Keys  
+Modification of authorised_keys to enable key-based re-entry.
+
+### Credential Access
+• T1003 – OS Credential Dumping  
+Access to /etc/shadow indicating potential credential harvesting.
+
+### Discovery
+• T1087 – Account Discovery  
+Enumeration of system accounts and privilege assignments.
+
+This mapping demonstrates how host telemetry can be contextualised within 
+a recognised adversary behaviour framework.
+
+------
+
+
+
+
