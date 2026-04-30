@@ -1,6 +1,6 @@
 # Linux Host Compromise Investigation – Microsoft Sentinel
 
-## 🎯 Lab Objective
+## Lab Objective
 
 This project simulates a realistic post-compromise investigation scenario involving a cloud-hosted Linux virtual machine monitored using Microsoft Sentinel.
 
@@ -8,7 +8,7 @@ The objective was to replicate attacker behaviour following successful remote ac
 
 ---
 
-## 🧪 Simulated Attack Scenario
+## Simulated Attack Scenario
 
 A threat actor gained initial access to a Linux host through successful SSH authentication from an external IP address.
 
@@ -25,7 +25,7 @@ These activities were intentionally generated to emulate realistic host compromi
 
 ---
 
-## 🛰️ Detection Engineering Approach
+## Detection Engineering Approach
 
 Custom KQL hunting queries were developed in Microsoft Sentinel to perform **behavioural correlation** across multiple Linux Syslog signals.
 
@@ -43,7 +43,7 @@ This behavioural detection methodology improves alert fidelity by highlighting a
 
 ---
 
-## 🔎 Investigation Methodology
+## Investigation Methodology
 
 A structured SOC investigation workflow was followed to validate potential compromise:
 
@@ -58,7 +58,7 @@ This investigative approach aligns with real SOC triage practices for suspected 
 
 ---
 
-## 🛡️ Incident Response Actions
+## Incident Response Actions
 
 Following confirmation of suspicious behaviour, containment actions were simulated:
 
@@ -73,7 +73,7 @@ These steps demonstrate practical incident response procedures used in enterpris
 
 ---
 
-## 📊 Skills Demonstrated
+## Skills Demonstrated
 
 - Microsoft Sentinel threat hunting  
 - KQL detection engineering  
@@ -85,7 +85,7 @@ These steps demonstrate practical incident response procedures used in enterpris
 
 ---
 
-## 🧠 Key Learning Outcomes
+## Key Learning Outcomes
 
 This lab reinforced several critical SOC analyst competencies:
 
@@ -97,7 +97,7 @@ This lab reinforced several critical SOC analyst competencies:
 
 ---
 
-## 🔗 Tools & Technologies
+## Tools & Technologies
 
 - Microsoft Sentinel  
 - Azure Linux Virtual Machine  
@@ -107,7 +107,7 @@ This lab reinforced several critical SOC analyst competencies:
 
 ---
 
-## 📌 MITRE ATT&CK Techniques Observed
+## MITRE ATT&CK Techniques Observed
 
 - **T1078 — Valid Accounts**  
 - **T1548 — Abuse Elevation Control Mechanism**  
@@ -118,7 +118,7 @@ This lab reinforced several critical SOC analyst competencies:
 
 ---
 
-## 📈 Detection Improvement Opportunities
+## Detection Improvement Opportunities
 
 Future detection engineering enhancements could include:
 
@@ -132,7 +132,7 @@ This reflects continuous detection improvement practices used in mature SOC envi
 
 ---
 
-## 🧩 SOC Analyst Reflection
+## SOC Analyst Reflection
 
 This investigation highlighted the importance of analysing attacker behaviour progression rather than focusing solely on initial alerts.
 
